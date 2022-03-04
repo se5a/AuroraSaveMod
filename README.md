@@ -1,5 +1,5 @@
 # AuroraSaveMod
-Mod vastly improves save times by threading the IO portion of the save. 
+Mod *Attempts* to vastly improves save times by threading the IO portion of the save. (currently not finished, not fully working, don't use unless you're wanting to develop this mod) 
 
 ## What it does:  
 - Saves the game normaly (this is to allow us to compare the two save methods while developing).
