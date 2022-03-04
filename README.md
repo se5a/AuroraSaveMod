@@ -12,6 +12,8 @@ Mod *Attempts* to vastly improves save times by threading the IO portion of the 
     Currently the only method modified is Game.SaveCurrentGame() (Gclass0.method_52)
     the rest is Added classes. 
 
+![alt text](https://github.com/se5a/AuroraSaveMod/blob/main/SaveMod/savetimes.PNG?raw=true)
+
 Included is the modded AuroraSaveMod.exe, you'll still need to copy AuroraDB.db to AuroraQSDB.db 
 
 but if you want to do it the long way yourself:
