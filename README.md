@@ -1,5 +1,5 @@
 # AuroraSaveMod
-Mod *Attempts* to vastly improves save times by threading the IO portion of the save. (currently not finished, not fully working, don't use unless you're wanting to develop this mod) 
+Mod *Attempts* to vastly improves save times by threading the SQL and Disk IO portion of the save. (currently not finished, not fully working, don't use unless you're wanting to develop this mod) 
 
 Note: this will likely *never* be an "approved" mod, since it's saving to the database and potntialy creating issues that are hard to find. if you use this do not report bugs to steve. 
 
