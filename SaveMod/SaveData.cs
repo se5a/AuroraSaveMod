@@ -3962,6 +3962,7 @@ namespace Aurora
 			SystemBodyDataStore = new SystemBodyData[list.Count()];
 			foreach (GClass1 gclass in list)
 			{
+				gclass.genum5_0 = GEnum5.const_0;
 				var dataObj = new SystemBodyData()
 				{
 					SystemBodyID = gclass.int_0,

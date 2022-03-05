@@ -644,6 +644,7 @@ namespace Aurora
 			try
 			{
 				new SQLiteCommand("DELETE FROM FCT_Fleet WHERE GameID = " + gameID, sqliteConnection_0).ExecuteNonQuery();
+				new SQLiteCommand("DELETE FROM FCT_FleetHistory WHERE GameID = " + gameID, sqliteConnection_0).ExecuteNonQuery();
 				using (SQLiteCommand sqliteCommand = new SQLiteCommand(sqliteConnection_0))
 				{
 					foreach(var fleetData in FleetDataStore)
