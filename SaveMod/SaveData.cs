@@ -2405,7 +2405,6 @@ namespace Aurora
 			public decimal Uridium;
 			public decimal Corundium;
 			public decimal Gallicite;
-			public int[] GUCapGroundUnitClassID;
 			public GEnum110[] GUCapCapabilityID;
 		}
 
@@ -2449,12 +2448,10 @@ namespace Aurora
 				}
 
 				int count = gclass.dictionary_0.Count;
-				int[] gUCapGroundUnitClassID = new int[count];
 				GEnum110[] gUCapCapabilityID = new GEnum110[count];
 				int j = 0;
 				foreach (GClass90 gclass2 in gclass.dictionary_0.Values)
 				{
-					gUCapGroundUnitClassID[j] = gclass.int_0;
 					gUCapCapabilityID[j] = gclass2.genum110_0;
 					j++;
 				}
@@ -2498,7 +2495,6 @@ namespace Aurora
 					Uridium = gclass.gclass114_0.decimal_8,
 					Corundium = gclass.gclass114_0.decimal_9,
 					Gallicite = gclass.gclass114_0.decimal_10,
-					GUCapGroundUnitClassID = gUCapGroundUnitClassID,
 					GUCapCapabilityID = gUCapCapabilityID,
 				};
 				GroundUnitClasss[i] = dataObj;
@@ -2512,6 +2508,7 @@ namespace Aurora
 			{
 				new SQLiteCommand("DELETE FROM FCT_GroundUnitClass WHERE GameID = " + gameID, sqliteConnection_0)
 					.ExecuteNonQuery();
+				new SQLiteCommand("DELETE FROM FCT_GroundUnitCapability WHERE GameID = " + gameID, sqliteConnection_0).ExecuteNonQuery();
 				using (SQLiteCommand sqliteCommand = new SQLiteCommand(sqliteConnection_0))
 				{
 					foreach (var GroundUnitClass in GroundUnitClasss)
@@ -2560,19 +2557,18 @@ namespace Aurora
 						sqliteCommand.Parameters.AddWithValue("@Uridium", GroundUnitClass.Uridium);
 						sqliteCommand.Parameters.AddWithValue("@Corundium", GroundUnitClass.Corundium);
 						sqliteCommand.Parameters.AddWithValue("@Gallicite", GroundUnitClass.Gallicite);
-						for (int o = 0; o < GroundUnitClass.GUCapGroundUnitClassID.Length; o++)
+						sqliteCommand.ExecuteNonQuery();
+						for (int o = 0; o < GroundUnitClass.GUCapCapabilityID.Length; o++)
 						{
 							sqliteCommand.CommandText =
 								"INSERT INTO FCT_GroundUnitCapability ( GroundUnitClassID, CapabilityID, GameID ) VALUES ( @GroundUnitClassID, @CapabilityID, @GameID )";
 							sqliteCommand.Parameters.AddWithValue("@GroundUnitClassID",
-								GroundUnitClass.GUCapGroundUnitClassID[o]);
+								GroundUnitClass.GroundUnitClassID);
 							sqliteCommand.Parameters.AddWithValue("@CapabilityID",
 								GroundUnitClass.GUCapCapabilityID[o]);
 							sqliteCommand.Parameters.AddWithValue("@GameID", gameID);
 							sqliteCommand.ExecuteNonQuery();
 						}
-
-						sqliteCommand.ExecuteNonQuery();
 					}
 				}
 			}
