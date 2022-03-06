@@ -1733,7 +1733,7 @@ namespace Aurora
 	/// <summary>
 	/// method_116
 	/// </summary>
-	public class SaveAlienSystem
+	public class SaveAlienRaces
 	{
 		
 		public struct AlienRaceData
@@ -1776,7 +1776,7 @@ namespace Aurora
 			public int DetectRaceID;
 		}
 
-		public SaveAlienSystem(GClass0 game)
+		public SaveAlienRaces(GClass0 game)
 		{
 			int i = 0;
 			var list = game.dictionary_34.Values.SelectMany<GClass21, GClass102>((Func<GClass21, IEnumerable<GClass102>>)(x => (IEnumerable<GClass102>) x.dictionary_8.Values)).ToList<GClass102>();
@@ -3370,7 +3370,7 @@ namespace Aurora
 	/// <summary>
 	/// method_131
 	/// </summary>
-	public class SaveAlienRaceSystemStatus
+	public class SaveSurveyRecords
 	{
 		public struct RaceSysSurveyData
 		{
@@ -3422,7 +3422,7 @@ namespace Aurora
 		AlienRaceSystemStatusData[] AlienRaceSystemStatusStore;
 
 
-		public SaveAlienRaceSystemStatus(GClass0 game)
+		public SaveSurveyRecords(GClass0 game)
 		{
 			int i = 0;
 			var list1 = game.dictionary_34.Values.SelectMany<GClass21, GClass180>((Func<GClass21, IEnumerable<GClass180>>)(x => (IEnumerable<GClass180>) x.dictionary_0.Values)).ToList<GClass180>();

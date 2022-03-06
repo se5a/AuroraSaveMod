@@ -243,8 +243,8 @@ namespace Aurora
         public SaveGroundUnitTraining SaveGroundUnitTrainingTasksData;
         public SaveResearchProject SaveResearchProjectsData;
         public SaveSectorCommand SaveSectorsData;
-        public SaveAlienSystem SaveAlienSystemData;
-        public SaveAlienRaceSystemStatus SaveAlienRacesData;
+        public SaveAlienRaces SaveAlienRacesData;
+        public SaveSurveyRecords SaveSurveyRecordsData;
         public SaveAlienPopulation SaveAlienPopulationsData;
         public SaveAlienClass SaveAlienClassesData;
         public SaveAlienRaceSensor SaveAlienSensorsData;
@@ -286,6 +286,7 @@ namespace Aurora
 	        SaveWayPointsData = new SaveWaypoint(game);
 	        SaveMDPacketsData = new SaveMassDriverPackets(game);
 	        SaveLagrangePointsData = new SaveLagrangePoint(game);
+	        SaveAetherRiftData = new SaveAetherRift(game);
 	        SavePopTradeData = new SavePopTradeBalance(game);
 	        SaveShippingWealthDataData = new SaveShippingWealthData(game);
 	        SaveMoveOrdersData = new SaveMoveOrders(game);
@@ -304,7 +305,7 @@ namespace Aurora
 	        SaveShipClassesData = new SaveShipClass(game);
 	        SaveSystemBodyNamesData = new SaveSystemBodyName(game);
 	        SaveSurvivorsData = new SaveSurvivors(game);
-	        SaveAncentConstrucctData = new SaveAncientConstruct(game);
+	        SaveAncentConstrucctData = new SaveAncientConstruct(game); //older versions called this "Anomalies"
 	        SaveRuinRacesData = new SaveRuinRace(game);
 	        SaveShipsData = new SaveShip(game);
 	        SaveAcidAttacksData = new SaveAcidAttack(game);
@@ -325,10 +326,10 @@ namespace Aurora
 	        SaveSubFleetsData = new SaveSubFleets(game);
 	        SaveLifepodsData = new SaveLifepods(game);
 	        SaveGroundUnitTrainingTasksData = new SaveGroundUnitTraining(game);
+	        SaveGUTrainingQ = new SaveGroundUnitTrainingQueue(game); //this is not in older versions
 	        SaveResearchProjectsData = new SaveResearchProject(game);
 	        SaveSectorsData = new SaveSectorCommand(game);
-	        SaveAlienSystemData = new SaveAlienSystem(game);
-	        SaveAlienRacesData = new SaveAlienRaceSystemStatus(game);
+	        SaveAlienRacesData = new SaveAlienRaces(game);
 	        SaveAlienPopulationsData = new SaveAlienPopulation(game);
 	        SaveAlienClassesData = new SaveAlienClass(game);
 	        SaveAlienSensorsData = new SaveAlienRaceSensor(game);
@@ -341,21 +342,22 @@ namespace Aurora
 	        SaveGameLogData  = new SaveGameLog(game);
 	        SaveEventColoursData = new SaveEventColour(game);
 	        SaveHideEventsData = new SaveHideEvents(game);
+	        SaveSurveyRecordsData = new SaveSurveyRecords(game);
 	        SaveDesignPhilosophiesData = new SaveDesignPhilosophy(game);
 	        SaveRanksData = new SaveRanks(game);
 	        SaveMapLabelsData = new SaveMapLabel(game);
+	        SaveShipTechData = new SaveShipTech(game);
 	        SaveGroundUnitClassesData = new SaveGroundUnitClass(game);
 	        SaveGroundUnitFormationsData = new SaveGroundUnitFormation(game);
 	        SaveFormationTemplatesData = new SaveGroundUnitFormationTemplate(game);
 	        SaveFormationElementsData = new SaveGroundUnitFormationElement(game);
-	        SaveGUTrainingQ = new SaveGroundUnitTrainingQueue(game);
 	        SaveWindowPositionsData = new SaveWindowPosition(game);
 	        SaveRaceTechProgressionData = new SaveTechProgressionRace(game);
 	        SaveDamageControlQueueData = new SaveDamageControlQueue(game);
-	        SaveAetherRiftData = new SaveAetherRift(game);
 	        SaveRaceMedalData = new SaveRaceMedals(game);
 	        SaveMedalConditionalData = new SaveMedalConditionAssignment(game);
-	        SaveShipTechData = new SaveShipTech(game);
+
+	        
 		}
 
 		public void SaveToSQL(SQLiteConnection sqliteConnection_0, int gameID)
@@ -369,6 +371,7 @@ namespace Aurora
 	        SaveWayPointsData.SaveToSQL(sqliteConnection_0, gameID);
 	        SaveMDPacketsData.SaveToSQL(sqliteConnection_0, gameID);
 	        SaveLagrangePointsData.SaveToSQL(sqliteConnection_0, gameID);
+	        SaveAetherRiftData.SaveToSQL(sqliteConnection_0, gameID);
 	        SavePopTradeData.SaveToSQL(sqliteConnection_0, gameID);
 	        SaveShippingWealthDataData.SaveToSQL(sqliteConnection_0, gameID);
 	        SaveMoveOrdersData.SaveToSQL(sqliteConnection_0, gameID);
@@ -387,6 +390,7 @@ namespace Aurora
 	        SaveShipClassesData.SaveToSQL(sqliteConnection_0, gameID);
 	        SaveSystemBodyNamesData.SaveToSQL(sqliteConnection_0, gameID);
 	        SaveSurvivorsData.SaveToSQL(sqliteConnection_0, gameID);
+	        SaveAncentConstrucctData.SaveToSQL(sqliteConnection_0, gameID);
 	        SaveRuinRacesData.SaveToSQL(sqliteConnection_0, gameID);
 	        SaveShipsData.SaveToSQL(sqliteConnection_0, gameID);
 	        SaveAcidAttacksData.SaveToSQL(sqliteConnection_0, gameID);
@@ -407,6 +411,7 @@ namespace Aurora
 	        SaveSubFleetsData.SaveToSQL(sqliteConnection_0, gameID);
 	        SaveLifepodsData.SaveToSQL(sqliteConnection_0, gameID);
 	        SaveGroundUnitTrainingTasksData.SaveToSQL(sqliteConnection_0, gameID);
+	        SaveGUTrainingQ.SaveToSQL(sqliteConnection_0, gameID);
 	        SaveResearchProjectsData.SaveToSQL(sqliteConnection_0, gameID);
 	        SaveSectorsData.SaveToSQL(sqliteConnection_0, gameID);
 	        SaveAlienRacesData.SaveToSQL(sqliteConnection_0, gameID);
@@ -422,7 +427,7 @@ namespace Aurora
 	        SaveGameLogData.SaveToSQL(sqliteConnection_0, gameID);
 	        SaveEventColoursData.SaveToSQL(sqliteConnection_0, gameID);
 	        SaveHideEventsData.SaveToSQL(sqliteConnection_0, gameID);
-	        SaveAncentConstrucctData.SaveToSQL(sqliteConnection_0, gameID);
+	        SaveSurveyRecordsData.SaveToSQL(sqliteConnection_0, gameID);
 	        SaveDesignPhilosophiesData.SaveToSQL(sqliteConnection_0, gameID);
 	        SaveRanksData.SaveToSQL(sqliteConnection_0, gameID);
 	        SaveMapLabelsData.SaveToSQL(sqliteConnection_0, gameID);
@@ -436,10 +441,7 @@ namespace Aurora
 	        SaveDamageControlQueueData.SaveToSQL(sqliteConnection_0, gameID);
 	        SaveRaceMedalData.SaveToSQL(sqliteConnection_0, gameID);
 	        SaveMedalConditionalData.SaveToSQL(sqliteConnection_0, gameID);
-	        SaveAetherRiftData.SaveToSQL(sqliteConnection_0, gameID);
-	        SaveGUTrainingQ.SaveToSQL(sqliteConnection_0, gameID);
-	        SaveAlienSystemData.SaveToSQL(sqliteConnection_0, gameID);
-			
+
 		}
 	}
 
