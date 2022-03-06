@@ -207,9 +207,11 @@ namespace Aurora
         public SaveMoveOrders SaveMoveOrdersData;
         public SaveOrderTemplate SaveOrderTemplatesData;
         public SaveMoveOrderTemplate SaveMoveOrderTemplatesData;
+        
         public SaveSystemBody SaveSystemBodiesData;
         public DelSystemBody DeleteSysBodyData;
         public UpdateSystemBodies UpdateSystemBodiesData;
+        
         public SaveSystemBodySurveys SaveSystemBodySurveysData;
         public SaveMissileGeoSurvey SaveMissileGeoSurveysData;
         public SaveFleet SaveFleetsData;

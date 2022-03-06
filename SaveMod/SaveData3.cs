@@ -3540,6 +3540,7 @@ namespace Aurora
 				{
 					foreach (var dataObj in RaceSysSurveyStore )
 					{
+						sqliteCommand.CommandText = "INSERT INTO FCT_RaceSysSurvey (GameID, RaceID, SystemID, Name, DangerRating, SysTPStatus, ControlRaceID, ForeignFleetRaceID, SectorID, NameThemeID, Discovered, Xcor, Ycor, ClosedWP, SurveyDone, GeoSurveyDefaultDone, SelectedBodyXcor, SelectedBodyYcor, KmPerPixel, DiscoveredTime, NoAutoRoute, MilitaryRestrictedSystem, SystemValue, AutoProtectionStatus, MineralSearchFlag ) \r\n                        VALUES (@GameID, @RaceID, @SystemID, @Name, @DangerRating, @SysTPStatus, @ControlRaceID, @ForeignFleetRaceID, @SectorID, @NameThemeID, @Discovered, @Xcor, @Ycor, @ClosedWP, @SurveyDone, @GeoSurveyDefaultDone, @SelectedBodyXcor, @SelectedBodyYcor, @KmPerPixel, @DiscoveredTime, @NoAutoRoute, @MilitaryRestrictedSystem, @SystemValue, @AutoProtectionStatus, @MineralSearchFlag )";
 						sqliteCommand.Parameters.AddWithValue("@GameID", gameID);
 						sqliteCommand.Parameters.AddWithValue("@RaceID", dataObj.RaceID);
 						sqliteCommand.Parameters.AddWithValue("@SystemID", dataObj.SystemID);
@@ -3565,9 +3566,11 @@ namespace Aurora
 						sqliteCommand.Parameters.AddWithValue("@SystemValue", dataObj.SystemValue);
 						sqliteCommand.Parameters.AddWithValue("@AutoProtectionStatus", dataObj.AutoProtectionStatus);
 						sqliteCommand.Parameters.AddWithValue("@MineralSearchFlag", dataObj.MineralSearchFlag);
+						sqliteCommand.ExecuteNonQuery();
 					}
 					foreach (var dataObj in RaceJumpPointSurveyStore )
 					{
+						sqliteCommand.CommandText = "INSERT INTO FCT_RaceJumpPointSurvey (GameID, RaceID, WarpPointID, Explored, Charted, AlienUnits, Hide ) \r\n                        VALUES (@GameID, @RaceID, @WarpPointID, @Explored, @Charted, @AlienUnits, @Hide )";
 						sqliteCommand.Parameters.AddWithValue("@GameID", gameID);
 						sqliteCommand.Parameters.AddWithValue("@RaceID", dataObj.RaceID);
 						sqliteCommand.Parameters.AddWithValue("@WarpPointID", dataObj.WarpPointID);
@@ -3575,17 +3578,18 @@ namespace Aurora
 						sqliteCommand.Parameters.AddWithValue("@Charted", dataObj.Charted);
 						sqliteCommand.Parameters.AddWithValue("@AlienUnits", dataObj.AlienUnits);
 						sqliteCommand.Parameters.AddWithValue("@Hide", dataObj.Hide);
+						sqliteCommand.ExecuteNonQuery();
 					}
 					foreach (var dataObj in AlienRaceSystemStatusStore )
 					{
+						sqliteCommand.CommandText = "INSERT INTO FCT_AlienRaceSystemStatus (AlienRaceID, SystemID, ProtectionStatusID, GameID, ViewingRaceID ) \r\n                        VALUES (@AlienRaceID, @SystemID, @ProtectionStatusID, @GameID, @ViewingRaceID )";
 						sqliteCommand.Parameters.AddWithValue("@AlienRaceID", dataObj.AlienRaceID);
 						sqliteCommand.Parameters.AddWithValue("@SystemID", dataObj.SystemID);
 						sqliteCommand.Parameters.AddWithValue("@ProtectionStatusID", dataObj.ProtectionStatusID);
 						sqliteCommand.Parameters.AddWithValue("@GameID", gameID);
 						sqliteCommand.Parameters.AddWithValue("@ViewingRaceID", dataObj.ViewingRaceID);
+						sqliteCommand.ExecuteNonQuery();
 					}
-					sqliteCommand.CommandText = "INSERT INTO FCT_RaceSysSurvey (GameID, RaceID, SystemID, Name, DangerRating, SysTPStatus, ControlRaceID, ForeignFleetRaceID, SectorID, NameThemeID, Discovered, Xcor, Ycor, ClosedWP, SurveyDone, GeoSurveyDefaultDone, SelectedBodyXcor, SelectedBodyYcor, KmPerPixel, DiscoveredTime, NoAutoRoute, MilitaryRestrictedSystem, SystemValue, AutoProtectionStatus, MineralSearchFlag ) \r\n                        VALUES (@GameID, @RaceID, @SystemID, @Name, @DangerRating, @SysTPStatus, @ControlRaceID, @ForeignFleetRaceID, @SectorID, @NameThemeID, @Discovered, @Xcor, @Ycor, @ClosedWP, @SurveyDone, @GeoSurveyDefaultDone, @SelectedBodyXcor, @SelectedBodyYcor, @KmPerPixel, @DiscoveredTime, @NoAutoRoute, @MilitaryRestrictedSystem, @SystemValue, @AutoProtectionStatus, @MineralSearchFlag )";
-					sqliteCommand.ExecuteNonQuery();
 				}
 			}
 			catch (Exception exception_)

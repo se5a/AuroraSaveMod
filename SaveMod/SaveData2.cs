@@ -204,6 +204,7 @@ namespace Aurora
 					Ring = gclass2.bool_2,
 				};
 				SysBodyData2Store[i] = dataObj;
+				gclass2.genum5_0 = GEnum5.const_0;
 				i++;
 			}
 		}
