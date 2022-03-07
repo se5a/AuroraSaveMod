@@ -1154,6 +1154,24 @@ namespace Aurora
 			public bool Export;
 			public bool NonEssential;
 		}
+		
+		public struct PopMDChanges
+		{					
+			public int PopulationID;
+			public decimal Duranium;
+			public decimal Neutronium;
+			public decimal Corbomite;
+			public decimal Tritanium;
+			public decimal Boronide;
+			public decimal Mercassium;
+			public decimal Vendarite;
+			public decimal Sorium;
+			public decimal Uridium;
+			public decimal Corundium;
+			public decimal Gallicite;
+		}
+
+		private List<PopMDChanges> PopMdChangesData = new List<PopMDChanges>();
 
 		public SavePopulation(GClass0 game)
 		{
@@ -1372,6 +1390,27 @@ namespace Aurora
 					PopInstallationDemandStore = PopInstallationDemandStore
 				};
 				PopulationStore[i] = dataObj;
+
+				if (gclass.gclass114_3.method_2())
+				{
+					PopMDChanges dataObj1 = new PopMDChanges()
+					{
+						PopulationID = gclass.int_5,
+						Duranium = gclass.gclass114_3.decimal_0,
+						Neutronium = gclass.gclass114_3.decimal_1,
+						Corbomite = gclass.gclass114_3.decimal_2,
+						Tritanium = gclass.gclass114_3.decimal_3,
+						Boronide = gclass.gclass114_3.decimal_4,
+						Mercassium = gclass.gclass114_3.decimal_5,
+						Vendarite = gclass.gclass114_3.decimal_6,
+						Sorium = gclass.gclass114_3.decimal_7,
+						Uridium = gclass.gclass114_3.decimal_8,
+						Corundium = gclass.gclass114_3.decimal_9,
+						Gallicite = gclass.gclass114_3.decimal_10,
+					};
+					PopMdChangesData.Add(dataObj1);
+				}
+
 				i++;
 			}
 
@@ -1525,6 +1564,24 @@ namespace Aurora
 							sqliteCommand.Parameters.AddWithValue("@NonEssential", dataObj1.NonEssential);
 							sqliteCommand.ExecuteNonQuery();
 						}
+					}
+					foreach (var dataObj in PopMdChangesData)
+					{
+						sqliteCommand.CommandText = "INSERT INTO FCT_PopMDChanges (PopulationID, GameID, Duranium, Neutronium, Corbomite, Tritanium, Boronide, Mercassium, Vendarite, Sorium, Uridium, Corundium, Gallicite ) VALUES ( @PopulationID, @GameID, @Duranium, @Neutronium, @Corbomite, @Tritanium, @Boronide, @Mercassium, @Vendarite, @Sorium, @Uridium, @Corundium, @Gallicite )";
+						sqliteCommand.Parameters.AddWithValue("@PopulationID", dataObj.PopulationID);
+						sqliteCommand.Parameters.AddWithValue("@GameID", gameID);
+						sqliteCommand.Parameters.AddWithValue("@Duranium", dataObj.Duranium);
+						sqliteCommand.Parameters.AddWithValue("@Neutronium", dataObj.Neutronium);
+						sqliteCommand.Parameters.AddWithValue("@Corbomite", dataObj.Corbomite);
+						sqliteCommand.Parameters.AddWithValue("@Tritanium", dataObj.Tritanium);
+						sqliteCommand.Parameters.AddWithValue("@Boronide", dataObj.Boronide);
+						sqliteCommand.Parameters.AddWithValue("@Mercassium", dataObj.Mercassium);
+						sqliteCommand.Parameters.AddWithValue("@Vendarite", dataObj.Vendarite);
+						sqliteCommand.Parameters.AddWithValue("@Sorium", dataObj.Sorium);
+						sqliteCommand.Parameters.AddWithValue("@Uridium", dataObj.Uridium);
+						sqliteCommand.Parameters.AddWithValue("@Corundium", dataObj.Corundium);
+						sqliteCommand.Parameters.AddWithValue("@Gallicite", dataObj.Gallicite);
+						sqliteCommand.ExecuteNonQuery();
 					}
 				}
 			}

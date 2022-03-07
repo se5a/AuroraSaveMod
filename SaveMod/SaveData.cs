@@ -1113,9 +1113,6 @@ namespace Aurora
 					raceOperationalGroupElementsStore[j] = dataObj1;
 					j++;
 				}
-					
-					
-					
 				
 				var dataObj = new RaceData()
 				{
@@ -1634,15 +1631,17 @@ namespace Aurora
 							sqliteCommand.Parameters.AddWithValue("@GameID", gameID);
 							sqliteCommand.ExecuteNonQuery();
 						}
-
-						foreach (var dataObj1 in dataObj.BannedBodiesStore)
+						if(!dataObj.NPR)
 						{
-							sqliteCommand.CommandText =
-								"INSERT INTO FCT_BannedBodies (SystemBodyID, RaceID, GameID ) VALUES ( @SystemBodyID, @RaceID, @GameID )";
-							sqliteCommand.Parameters.AddWithValue("@SystemBodyID", dataObj1.SystemBodyID);
-							sqliteCommand.Parameters.AddWithValue("@RaceID", dataObj.RaceID);
-							sqliteCommand.Parameters.AddWithValue("@GameID", gameID);
-							sqliteCommand.ExecuteNonQuery();
+							foreach (var dataObj1 in dataObj.BannedBodiesStore)
+							{
+								sqliteCommand.CommandText =
+									"INSERT INTO FCT_BannedBodies (SystemBodyID, RaceID, GameID ) VALUES ( @SystemBodyID, @RaceID, @GameID )";
+								sqliteCommand.Parameters.AddWithValue("@SystemBodyID", dataObj1.SystemBodyID);
+								sqliteCommand.Parameters.AddWithValue("@RaceID", dataObj1.RaceID);
+								sqliteCommand.Parameters.AddWithValue("@GameID", gameID);
+								sqliteCommand.ExecuteNonQuery();
+							}
 						}
 
 						foreach (var dataObj1 in dataObj.RaceNameThemesStore)
@@ -1974,6 +1973,8 @@ namespace Aurora
 			public AuroraTargetSelection TargetSelection;
 			public int FiringDistribution;
 			public int ElementID;
+			public ElementRechargeData[] ElementRechargeStore;
+			public STODetectedData[] STODetectedStore;
 		}
 		GroundUnitFormationElementData[] GroundUnitFormationElementStore;
 
@@ -1982,15 +1983,13 @@ namespace Aurora
 			public int ElementID;
 			public int RechargeRemaining;
 		}
-		ElementRechargeData[] ElementRechargeStore;
-
+		
 		public struct STODetectedData
 		{
 			public int ElementID;
 			public int DetectingRaceID;
 		}
-		STODetectedData[] STODetectedStore;
-
+		
 		public struct GroundUnitFormationElementTemplatesData
 		{
 			public int FormationTemplateID;
@@ -2009,7 +2008,7 @@ namespace Aurora
 			GroundUnitFormationElementStore = new GroundUnitFormationElementData[list.Count];
 			foreach(GClass38 gclass in list)
 			{
-				ElementRechargeStore = new ElementRechargeData[gclass.list_0.Count];
+				var elementRechargeStore = new ElementRechargeData[gclass.list_0.Count];
 				int j = 0;
 				foreach (int num in gclass.list_0)
 				{
@@ -2018,10 +2017,10 @@ namespace Aurora
 						ElementID = gclass.int_0,
 						RechargeRemaining = num,
 					};
-					ElementRechargeStore[j] = dataObj1;
+					elementRechargeStore[j] = dataObj1;
 					j++;
 				}
-				STODetectedStore = new STODetectedData[gclass.list_1.Count];
+				var stoDetectedStore = new STODetectedData[gclass.list_1.Count];
 				j = 0;
 				foreach (GClass21 gclass2 in gclass.list_1)
 				{
@@ -2030,9 +2029,11 @@ namespace Aurora
 						ElementID = gclass.int_0,
 						DetectingRaceID = gclass2.RaceID,
 					};
-					STODetectedStore[j] = dataObj2;
+					stoDetectedStore[j] = dataObj2;
 					j++;
 				}
+				
+				
 				var dataObj = new GroundUnitFormationElementData()
 				{
 					FormationID = gclass.gclass95_0.int_0,
@@ -2046,6 +2047,8 @@ namespace Aurora
 					TargetSelection = gclass.auroraTargetSelection_0,
 					FiringDistribution = gclass.int_6,
 					ElementID = gclass.int_0,
+					ElementRechargeStore = elementRechargeStore,
+					STODetectedStore = stoDetectedStore,
 				};
 				GroundUnitFormationElementStore[i] = dataObj;
 				i++;
@@ -2077,9 +2080,10 @@ namespace Aurora
 				new SQLiteCommand("DELETE FROM FCT_STODetected WHERE GameID = " + gameID, sqliteConnection_0).ExecuteNonQuery();
 				using (SQLiteCommand sqliteCommand = new SQLiteCommand(sqliteConnection_0))
 				{
-					foreach (var dataObj in GroundUnitFormationElementStore )
+					foreach (var dataObj in GroundUnitFormationElementStore)
 					{
-						sqliteCommand.CommandText = "INSERT INTO FCT_GroundUnitFormationElement (GameID, FormationID, Units, ClassID, TemplateID, SpeciesID, Morale, FortificationLevel, CurrentSupply, TargetSelection, FiringDistribution, ElementID ) \r\n                        VALUES ( @GameID, @FormationID, @Units, @ClassID, @TemplateID, @SpeciesID, @Morale, @FortificationLevel, @CurrentSupply, @TargetSelection, @FiringDistribution, @ElementID)";
+						sqliteCommand.CommandText =
+							"INSERT INTO FCT_GroundUnitFormationElement (GameID, FormationID, Units, ClassID, TemplateID, SpeciesID, Morale, FortificationLevel, CurrentSupply, TargetSelection, FiringDistribution, ElementID ) \r\n                        VALUES ( @GameID, @FormationID, @Units, @ClassID, @TemplateID, @SpeciesID, @Morale, @FortificationLevel, @CurrentSupply, @TargetSelection, @FiringDistribution, @ElementID)";
 						sqliteCommand.Parameters.AddWithValue("@GameID", gameID);
 						sqliteCommand.Parameters.AddWithValue("@FormationID", dataObj.FormationID);
 						sqliteCommand.Parameters.AddWithValue("@Units", dataObj.Units);
@@ -2093,23 +2097,28 @@ namespace Aurora
 						sqliteCommand.Parameters.AddWithValue("@FiringDistribution", dataObj.FiringDistribution);
 						sqliteCommand.Parameters.AddWithValue("@ElementID", dataObj.ElementID);
 						sqliteCommand.ExecuteNonQuery();
+
+						foreach (var dataObj1 in dataObj.ElementRechargeStore)
+						{
+							sqliteCommand.CommandText =
+								"INSERT INTO FCT_ElementRecharge ( GameID, ElementID, RechargeRemaining ) VALUES ( @GameID, @ElementID, @RechargeRemaining )";
+							sqliteCommand.Parameters.AddWithValue("@GameID", gameID);
+							sqliteCommand.Parameters.AddWithValue("@ElementID", dataObj1.ElementID);
+							sqliteCommand.Parameters.AddWithValue("@RechargeRemaining", dataObj1.RechargeRemaining);
+							sqliteCommand.ExecuteNonQuery();
+						}
+
+						foreach (var dataObj1 in dataObj.STODetectedStore)
+						{
+							sqliteCommand.CommandText =
+								"INSERT INTO FCT_STODetected ( GameID, ElementID, DetectingRaceID ) VALUES ( @GameID, @ElementID, @DetectingRaceID )";
+							sqliteCommand.Parameters.AddWithValue("@GameID", gameID);
+							sqliteCommand.Parameters.AddWithValue("@ElementID", dataObj1.ElementID);
+							sqliteCommand.Parameters.AddWithValue("@DetectingRaceID", dataObj1.DetectingRaceID);
+							sqliteCommand.ExecuteNonQuery();
+						}
 					}
-					foreach (var dataObj in ElementRechargeStore )
-					{
-						sqliteCommand.CommandText = "INSERT INTO FCT_ElementRecharge ( GameID, ElementID, RechargeRemaining ) VALUES ( @GameID, @ElementID, @RechargeRemaining )";
-						sqliteCommand.Parameters.AddWithValue("@GameID", gameID);
-						sqliteCommand.Parameters.AddWithValue("@ElementID", dataObj.ElementID);
-						sqliteCommand.Parameters.AddWithValue("@RechargeRemaining", dataObj.RechargeRemaining);
-						sqliteCommand.ExecuteNonQuery();
-					}
-					foreach (var dataObj in STODetectedStore )
-					{
-						sqliteCommand.CommandText = "INSERT INTO FCT_STODetected ( GameID, ElementID, DetectingRaceID ) VALUES ( @GameID, @ElementID, @DetectingRaceID )";
-						sqliteCommand.Parameters.AddWithValue("@GameID", gameID);
-						sqliteCommand.Parameters.AddWithValue("@ElementID", dataObj.ElementID);
-						sqliteCommand.Parameters.AddWithValue("@DetectingRaceID", dataObj.DetectingRaceID);
-						sqliteCommand.ExecuteNonQuery();
-					}
+
 					foreach (var dataObj in GroundUnitFormationElementTemplatesStore )
 					{
 						sqliteCommand.CommandText = "INSERT INTO FCT_GroundUnitFormationElementTemplates (GameID, FormationTemplateID, ClassID, Units ) VALUES ( @GameID, @FormationTemplateID, @ClassID, @Units)";
@@ -3810,6 +3819,9 @@ namespace Aurora
 			int i = 0;
 			foreach (GClass131 gclass in list)
 			{
+				num = 0m;
+				num2 = 0m;
+				num3 = 0m;
 				if (gclass.gclass132_0 != null)
 				{
 					num = gclass.gclass132_0.int_5;
