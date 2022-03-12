@@ -19,7 +19,7 @@ namespace Aurora
 		{
 			
 			int i = 0;
-			SysBodyIDs = new int[game.list_0.Count];
+			SysBodyIDs = new int[game.list_0.Count]; //game.DeletedSystemBodies
 			foreach (GClass1 gclass in game.list_0)
 			{
 				SysBodyIDs[i] = gclass.int_0;
@@ -119,7 +119,7 @@ namespace Aurora
 		SysBodyData2[] SysBodyData2Store;
 
 
-		public UpdateSystemBodies(GClass0 game)
+		public UpdateSystemBodies(GClass0 game, bool changeState)
 		{
 			//this.SystemBodyList.Values.Where<SystemBody>((Func<SystemBody, bool>) (x => x.SaveStatus == AuroraSaveStatus.Loaded)).ToList<SystemBody>())
 			//SystemBodyList = dictionary_11
@@ -127,6 +127,8 @@ namespace Aurora
 			//SaveStatus = GClass0
 			//AuroraSaveStatus.Loaded = GEnum5.const_0 (Best Guess)
 			//AuroraSaveStatus.Updated = GEnum5.const_1 (Best Guess)
+			
+			//List of SystemBodys where SaveStatus is Loaded. 
 			var list = game.dictionary_11.Values.Where<GClass1>((Func<GClass1, bool>) (x => x.genum5_0 == GEnum5.const_0)).ToList<GClass1>();
 			SysBodyData1Store = new SysBodyData1[list.Count];
 			int i = 0;
@@ -159,7 +161,7 @@ namespace Aurora
 				SysBodyData1Store[i] = dataObj;
 				i++;
 			}
-			
+			//List of SystemBodies where SaveStatus is Updated
 			list = game.dictionary_11.Values.Where<GClass1>((Func<GClass1, bool>) (x => x.genum5_0 == GEnum5.const_1)).ToList<GClass1>();
 			SysBodyData2Store = new SysBodyData2[list.Count];
 			i = 0;
@@ -204,7 +206,10 @@ namespace Aurora
 					Ring = gclass2.bool_2,
 				};
 				SysBodyData2Store[i] = dataObj;
-				gclass2.genum5_0 = GEnum5.const_0;
+				if(changeState)
+				{
+					gclass2.genum5_0 = GEnum5.const_0; //Set SaveStatus to Loaded
+				}
 				i++;
 			}
 		}

@@ -45,7 +45,19 @@ namespace Aurora
 			}
 		}
 
-		public static SaveData SaveToMemory(GClass0 game)
+		public static decimal SaveEverySpan = 86400;
+		public static decimal LastSaveDateTime = 0;
+		public static void SaveFreq(GClass0 game,  decimal newGameTime)
+		{
+			if (newGameTime - LastSaveDateTime >= SaveEverySpan)
+			{
+				LastSaveDateTime = newGameTime;
+				var memSave = SaveToMemory(game, false);
+				SaveToSQLDatabase(game, memSave);
+			}
+		}
+
+		public static SaveData SaveToMemory(GClass0 game, bool changeState)
 		{
 
 			while (GetIsIOBuisy())
@@ -57,7 +69,7 @@ namespace Aurora
 			var sw = new Stopwatch();
 			sw.Start();
 			Cursor.Current = Cursors.WaitCursor;
-			var saveData = new SaveData(game);
+			var saveData = new SaveData(game, changeState);
 			Cursor.Current = Cursors.Default;
 			var memsaveTime = sw.Elapsed;
 			sw.Stop();
@@ -276,7 +288,7 @@ namespace Aurora
         public SaveAetherRift SaveAetherRiftData;
 		
 
-		public SaveData(GClass0 game)
+		public SaveData(GClass0 game, bool changeState)
 		{
 			GameID = game.int_57;
 			SaveGameData = new SaveGameData(game);
@@ -295,8 +307,8 @@ namespace Aurora
 	        SaveOrderTemplatesData = new SaveOrderTemplate(game);
 	        SaveMoveOrderTemplatesData = new SaveMoveOrderTemplate(game);
 	        DeleteSysBodyData = new DelSystemBody(game);
-	        SaveSystemBodiesData = new SaveSystemBody(game);
-	        UpdateSystemBodiesData = new UpdateSystemBodies(game);
+	        SaveSystemBodiesData = new SaveSystemBody(game, changeState);
+	        UpdateSystemBodiesData = new UpdateSystemBodies(game, changeState);
 	        SaveSystemBodySurveysData = new SaveSystemBodySurveys(game);
 	        SaveMissileGeoSurveysData = new SaveMissileGeoSurvey(game);
 	        SaveFleetsData = new SaveFleet(game);
@@ -3964,17 +3976,22 @@ namespace Aurora
 		SystemBodyData[] SystemBodyDataStore;
 
 
-		public SaveSystemBody(GClass0 game)
+		public SaveSystemBody(GClass0 game, bool changeState)
 		{
 			
 			int i = 0;
 			//(SystemBody systemBody in this.SystemBodyList.Values.Where<SystemBody>((Func<SystemBody, bool>) (x => x.SaveStatus == AuroraSaveStatus.New)).ToList<SystemBody>()
+			
+			//Get SystemBodies where SaveStatus is New
 			List<GClass1> list = game.dictionary_11.Values
 				.Where<GClass1>((Func<GClass1, bool>)(x => x.genum5_0 == GEnum5.const_2)).ToList<GClass1>();
 			SystemBodyDataStore = new SystemBodyData[list.Count()];
 			foreach (GClass1 gclass in list)
 			{
-				gclass.genum5_0 = GEnum5.const_0;
+				if(changeState)
+				{
+					gclass.genum5_0 = GEnum5.const_0; //Set SaveStatus to Loaded.
+				}
 				var dataObj = new SystemBodyData()
 				{
 					SystemBodyID = gclass.int_0,

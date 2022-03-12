@@ -1,5 +1,6 @@
 public void method_52()
 {
+    SaveData save = SaveGameMethods.SaveToMemory(this, false);
     var sw = new System.Diagnostics.Stopwatch();
     sw.Start();
     try
@@ -109,6 +110,5 @@ public void method_52()
     string text = "SaveTime = " + sw.Elapsed.TotalSeconds;
     GClass21 gclass = this.gclass21_0;
     this.gclass85_0.method_2(GEnum123.const_0, text, gclass, null, 0.0, 0.0, AuroraEventCategory.All);
-    SaveData save = SaveGameMethods.SaveToMemory(this);
     SaveGameMethods.SaveToSQLDatabase(this, save);
 }

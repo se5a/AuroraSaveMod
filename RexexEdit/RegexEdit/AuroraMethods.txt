@@ -1,0 +1,196 @@
+	public void method_87(SQLiteConnection sqliteConnection_0)
+	{
+		try
+		{
+			new SQLiteCommand("DELETE FROM FCT_Population WHERE GameID = " + this.int_57, sqliteConnection_0).ExecuteNonQuery();
+			new SQLiteCommand("DELETE FROM FCT_PopulationWeapon WHERE GameID = " + this.int_57, sqliteConnection_0).ExecuteNonQuery();
+			new SQLiteCommand("DELETE FROM FCT_PopComponent WHERE GameID = " + this.int_57, sqliteConnection_0).ExecuteNonQuery();
+			new SQLiteCommand("DELETE FROM FCT_PopMDChanges WHERE GameID = " + this.int_57, sqliteConnection_0).ExecuteNonQuery();
+			new SQLiteCommand("DELETE FROM FCT_Prisoners WHERE GameID = " + this.int_57, sqliteConnection_0).ExecuteNonQuery();
+			new SQLiteCommand("DELETE FROM FCT_PopInstallationDemand WHERE GameID = " + this.int_57, sqliteConnection_0).ExecuteNonQuery();
+			using (SQLiteCommand sqliteCommand = new SQLiteCommand(sqliteConnection_0))
+			{
+				foreach (GClass132 gclass in this.dictionary_20.Values)
+				{
+					int num = 0;
+					int num2 = 0;
+					int num3 = 0;
+					GEnum50 genum = GEnum50.const_0;
+					int num4 = 0;
+					int num5 = 0;
+					int num6 = 0;
+					if (gclass.gclass78_0 != null)
+					{
+						num = gclass.gclass78_0.int_3;
+					}
+					if (gclass.gclass78_1 != null)
+					{
+						num2 = gclass.gclass78_1.int_3;
+					}
+					if (gclass.gclass172_1 != null)
+					{
+						num3 = gclass.gclass172_1.int_0;
+					}
+					if (gclass.gclass199_0 != null)
+					{
+						genum = gclass.gclass199_0.genum50_0;
+					}
+					if (gclass.gclass132_0 != null)
+					{
+						num4 = gclass.gclass132_0.int_5;
+					}
+					if (gclass.gclass6_0 != null)
+					{
+						num5 = (int)gclass.gclass6_0.genum94_0;
+					}
+					if (gclass.gclass21_1 != null)
+					{
+						num6 = gclass.gclass21_1.RaceID;
+					}
+					sqliteCommand.CommandText = "INSERT INTO FCT_Population ( PopulationID, GameID, RaceID, SpeciesID, PopName, AcademyOfficers, Capital, TerraformStatus, PurchaseCivilianMinerals, ColonistDestination, Efficiency, FighterDestFleetID, SpaceStationDestFleetID, FuelProdStatus, FuelStockpile, GenModSpeciesID, GroundAttackID, LastColonyCost, MaintenanceStockpile, MaintProdStatus, MassDriverDest, MaxAtm,\r\n                        NoStatusChange, PoliticalStatus, Population, PreviousUnrest, ProvideColonists, ReqInf, StatusPoints, SystemID, SystemBodyID, TempMF, TerraformingGasID, UnrestPoints, GroundGeoSurvey, DestroyedInstallationSize, Duranium, Neutronium, Corbomite, Tritanium, Boronide, Mercassium, Vendarite, Sorium, Uridium, Corundium, Gallicite,\r\n                        LastDuranium, LastNeutronium, LastCorbomite, LastTritanium, LastBoronide, LastMercassium, LastVendarite, LastSorium, LastUridium, LastCorundium, LastGallicite, ReserveDuranium, ReserveNeutronium, ReserveCorbomite, ReserveTritanium, ReserveBoronide, ReserveMercassium, ReserveVendarite, ReserveSorium, ReserveUridium, ReserveCorundium, ReserveGallicite, \r\n                        AIValue, InvasionStagingPoint, OriginalRaceID, DoNotDelete, MilitaryRestrictedColony, AcademyName, BonusOne, BonusTwo, BonusThree, AutoAssign, Importance) \r\n                        VALUES ( @PopulationID, @GameID, @RaceID, @SpeciesID, @PopName, @AcademyOfficers, @Capital, @TerraformStatus, @PurchaseCivilianMinerals, @ColonistDestination, @Efficiency, @FighterDestFleetID, @SpaceStationDestFleetID, @FuelProdStatus, @FuelStockpile, @GenModSpeciesID, @GroundAttackID, @LastColonyCost, @MaintenanceStockpile, @MaintProdStatus, @MassDriverDest, @MaxAtm,\r\n                        @NoStatusChange, @PoliticalStatus, @Population, @PreviousUnrest, @ProvideColonists, @ReqInf, @StatusPoints, @SystemID, @SystemBodyID, @TempMF, @TerraformingGasID, @UnrestPoints, @GroundGeoSurvey, @DestroyedInstallationSize, @Duranium, @Neutronium, @Corbomite, @Tritanium, @Boronide, @Mercassium, @Vendarite, @Sorium, @Uridium, @Corundium, @Gallicite,\r\n                        @LastDuranium, @LastNeutronium, @LastCorbomite, @LastTritanium, @LastBoronide, @LastMercassium, @LastVendarite, @LastSorium, @LastUridium, @LastCorundium, @LastGallicite, @ReserveDuranium, @ReserveNeutronium, @ReserveCorbomite, @ReserveTritanium, @ReserveBoronide, @ReserveMercassium, @ReserveVendarite, @ReserveSorium, @ReserveUridium, @ReserveCorundium, @ReserveGallicite, \r\n                        @AIValue, @InvasionStagingPoint, @OriginalRaceID, @DoNotDelete, @MilitaryRestrictedColony, @AcademyName, @BonusOne, @BonusTwo, @BonusThree, @AutoAssign, @Importance)";
+					sqliteCommand.Parameters.AddWithValue("@PopulationID", gclass.int_5);
+					sqliteCommand.Parameters.AddWithValue("@GameID", this.int_57);
+					sqliteCommand.Parameters.AddWithValue("@RaceID", gclass.gclass21_0.RaceID);
+					sqliteCommand.Parameters.AddWithValue("@SpeciesID", gclass.gclass172_0.int_0);
+					sqliteCommand.Parameters.AddWithValue("@PopName", gclass.PopName);
+					sqliteCommand.Parameters.AddWithValue("@AcademyOfficers", gclass.decimal_7);
+					sqliteCommand.Parameters.AddWithValue("@Capital", gclass.bool_1);
+					sqliteCommand.Parameters.AddWithValue("@TerraformStatus", gclass.genum34_0);
+					sqliteCommand.Parameters.AddWithValue("@PurchaseCivilianMinerals", gclass.bool_2);
+					sqliteCommand.Parameters.AddWithValue("@ColonistDestination", gclass.genum18_0);
+					sqliteCommand.Parameters.AddWithValue("@Efficiency", gclass.decimal_5);
+					sqliteCommand.Parameters.AddWithValue("@FighterDestFleetID", num);
+					sqliteCommand.Parameters.AddWithValue("@SpaceStationDestFleetID", num2);
+					sqliteCommand.Parameters.AddWithValue("@FuelProdStatus", gclass.bool_3);
+					sqliteCommand.Parameters.AddWithValue("@FuelStockpile", gclass.decimal_3);
+					sqliteCommand.Parameters.AddWithValue("@GenModSpeciesID", num3);
+					sqliteCommand.Parameters.AddWithValue("@GroundAttackID", gclass.int_7);
+					sqliteCommand.Parameters.AddWithValue("@LastColonyCost", gclass.decimal_1);
+					sqliteCommand.Parameters.AddWithValue("@MaintenanceStockpile", gclass.decimal_0);
+					sqliteCommand.Parameters.AddWithValue("@MaintProdStatus", gclass.bool_4);
+					sqliteCommand.Parameters.AddWithValue("@MassDriverDest", num4);
+					sqliteCommand.Parameters.AddWithValue("@MaxAtm", gclass.double_0);
+					sqliteCommand.Parameters.AddWithValue("@NoStatusChange", gclass.int_1);
+					sqliteCommand.Parameters.AddWithValue("@PoliticalStatus", gclass.gclass143_0.genum30_0);
+					sqliteCommand.Parameters.AddWithValue("@Population", gclass.decimal_4);
+					sqliteCommand.Parameters.AddWithValue("@PreviousUnrest", gclass.decimal_9);
+					sqliteCommand.Parameters.AddWithValue("@ProvideColonists", gclass.int_2);
+					sqliteCommand.Parameters.AddWithValue("@ReqInf", gclass.int_3);
+					sqliteCommand.Parameters.AddWithValue("@StatusPoints", gclass.decimal_6);
+					sqliteCommand.Parameters.AddWithValue("@SystemID", gclass.gclass180_0.gclass178_0.int_0);
+					sqliteCommand.Parameters.AddWithValue("@SystemBodyID", gclass.gclass1_0.int_0);
+					sqliteCommand.Parameters.AddWithValue("@TempMF", gclass.int_4);
+					sqliteCommand.Parameters.AddWithValue("@TerraformingGasID", genum);
+					sqliteCommand.Parameters.AddWithValue("@UnrestPoints", gclass.decimal_8);
+					sqliteCommand.Parameters.AddWithValue("@GroundGeoSurvey", gclass.decimal_2);
+					sqliteCommand.Parameters.AddWithValue("@DestroyedInstallationSize", gclass.int_8);
+					sqliteCommand.Parameters.AddWithValue("@Duranium", gclass.gclass114_0.decimal_0);
+					sqliteCommand.Parameters.AddWithValue("@Neutronium", gclass.gclass114_0.decimal_1);
+					sqliteCommand.Parameters.AddWithValue("@Corbomite", gclass.gclass114_0.decimal_2);
+					sqliteCommand.Parameters.AddWithValue("@Tritanium", gclass.gclass114_0.decimal_3);
+					sqliteCommand.Parameters.AddWithValue("@Boronide", gclass.gclass114_0.decimal_4);
+					sqliteCommand.Parameters.AddWithValue("@Mercassium", gclass.gclass114_0.decimal_5);
+					sqliteCommand.Parameters.AddWithValue("@Vendarite", gclass.gclass114_0.decimal_6);
+					sqliteCommand.Parameters.AddWithValue("@Sorium", gclass.gclass114_0.decimal_7);
+					sqliteCommand.Parameters.AddWithValue("@Uridium", gclass.gclass114_0.decimal_8);
+					sqliteCommand.Parameters.AddWithValue("@Corundium", gclass.gclass114_0.decimal_9);
+					sqliteCommand.Parameters.AddWithValue("@Gallicite", gclass.gclass114_0.decimal_10);
+					sqliteCommand.Parameters.AddWithValue("@LastDuranium", gclass.gclass114_1.decimal_0);
+					sqliteCommand.Parameters.AddWithValue("@LastNeutronium", gclass.gclass114_1.decimal_1);
+					sqliteCommand.Parameters.AddWithValue("@LastCorbomite", gclass.gclass114_1.decimal_2);
+					sqliteCommand.Parameters.AddWithValue("@LastTritanium", gclass.gclass114_1.decimal_3);
+					sqliteCommand.Parameters.AddWithValue("@LastBoronide", gclass.gclass114_1.decimal_4);
+					sqliteCommand.Parameters.AddWithValue("@LastMercassium", gclass.gclass114_1.decimal_5);
+					sqliteCommand.Parameters.AddWithValue("@LastVendarite", gclass.gclass114_1.decimal_6);
+					sqliteCommand.Parameters.AddWithValue("@LastSorium", gclass.gclass114_1.decimal_7);
+					sqliteCommand.Parameters.AddWithValue("@LastUridium", gclass.gclass114_1.decimal_8);
+					sqliteCommand.Parameters.AddWithValue("@LastCorundium", gclass.gclass114_1.decimal_9);
+					sqliteCommand.Parameters.AddWithValue("@LastGallicite", gclass.gclass114_1.decimal_10);
+					sqliteCommand.Parameters.AddWithValue("@ReserveDuranium", gclass.gclass114_2.decimal_0);
+					sqliteCommand.Parameters.AddWithValue("@ReserveNeutronium", gclass.gclass114_2.decimal_1);
+					sqliteCommand.Parameters.AddWithValue("@ReserveCorbomite", gclass.gclass114_2.decimal_2);
+					sqliteCommand.Parameters.AddWithValue("@ReserveTritanium", gclass.gclass114_2.decimal_3);
+					sqliteCommand.Parameters.AddWithValue("@ReserveBoronide", gclass.gclass114_2.decimal_4);
+					sqliteCommand.Parameters.AddWithValue("@ReserveMercassium", gclass.gclass114_2.decimal_5);
+					sqliteCommand.Parameters.AddWithValue("@ReserveVendarite", gclass.gclass114_2.decimal_6);
+					sqliteCommand.Parameters.AddWithValue("@ReserveSorium", gclass.gclass114_2.decimal_7);
+					sqliteCommand.Parameters.AddWithValue("@ReserveUridium", gclass.gclass114_2.decimal_8);
+					sqliteCommand.Parameters.AddWithValue("@ReserveCorundium", gclass.gclass114_2.decimal_9);
+					sqliteCommand.Parameters.AddWithValue("@ReserveGallicite", gclass.gclass114_2.decimal_10);
+					sqliteCommand.Parameters.AddWithValue("@AIValue", num5);
+					sqliteCommand.Parameters.AddWithValue("@InvasionStagingPoint", gclass.bool_6);
+					sqliteCommand.Parameters.AddWithValue("@OriginalRaceID", num6);
+					sqliteCommand.Parameters.AddWithValue("@DoNotDelete", gclass.bool_7);
+					sqliteCommand.Parameters.AddWithValue("@MilitaryRestrictedColony", gclass.bool_8);
+					sqliteCommand.Parameters.AddWithValue("@AcademyName", gclass.string_1);
+					sqliteCommand.Parameters.AddWithValue("@BonusOne", gclass.genum118_0);
+					sqliteCommand.Parameters.AddWithValue("@BonusTwo", gclass.genum118_1);
+					sqliteCommand.Parameters.AddWithValue("@BonusThree", gclass.genum118_2);
+					sqliteCommand.Parameters.AddWithValue("@AutoAssign", gclass.bool_0);
+					sqliteCommand.Parameters.AddWithValue("@Importance", gclass.int_0);
+					sqliteCommand.ExecuteNonQuery();
+					foreach (GClass121 gclass2 in gclass.list_1)
+					{
+						sqliteCommand.CommandText = "INSERT INTO FCT_PopulationWeapon (GameID, PopulationID, MissileID, Amount ) VALUES ( @GameID, @PopulationID, @MissileID, @Amount )";
+						sqliteCommand.Parameters.AddWithValue("@GameID", this.int_57);
+						sqliteCommand.Parameters.AddWithValue("@PopulationID", gclass.int_5);
+						sqliteCommand.Parameters.AddWithValue("@MissileID", gclass2.gclass120_0.int_0);
+						sqliteCommand.Parameters.AddWithValue("@Amount", gclass2.int_0);
+						sqliteCommand.ExecuteNonQuery();
+					}
+					foreach (GClass133 gclass3 in gclass.list_3)
+					{
+						sqliteCommand.CommandText = "INSERT INTO FCT_Prisoners (GameID, NumPrisoners, PopulationID, PrisonerRaceID, PrisonerSpeciesID ) VALUES ( @GameID, @NumPrisoners, @PopulationID, @PrisonerRaceID, @PrisonerSpeciesID )";
+						sqliteCommand.Parameters.AddWithValue("@GameID", this.int_57);
+						sqliteCommand.Parameters.AddWithValue("@NumPrisoners", gclass3.int_0);
+						sqliteCommand.Parameters.AddWithValue("@PopulationID", gclass.int_5);
+						sqliteCommand.Parameters.AddWithValue("@PrisonerRaceID", gclass3.gclass21_0.RaceID);
+						sqliteCommand.Parameters.AddWithValue("@PrisonerSpeciesID", gclass3.gclass172_0.int_0);
+						sqliteCommand.ExecuteNonQuery();
+					}
+					foreach (GClass68 gclass4 in gclass.list_2)
+					{
+						sqliteCommand.CommandText = "INSERT INTO FCT_PopComponent (ComponentID, PopulationID, GameID, Amount ) VALUES ( @ComponentID, @PopulationID, @GameID, @Amount )";
+						sqliteCommand.Parameters.AddWithValue("@ComponentID", gclass4.gclass206_0.int_0);
+						sqliteCommand.Parameters.AddWithValue("@PopulationID", gclass.int_5);
+						sqliteCommand.Parameters.AddWithValue("@GameID", this.int_57);
+						sqliteCommand.Parameters.AddWithValue("@Amount", gclass4.decimal_0);
+						sqliteCommand.ExecuteNonQuery();
+					}
+					foreach (GClass134 gclass5 in gclass.dictionary_5.Values)
+					{
+						sqliteCommand.CommandText = "INSERT INTO FCT_PopInstallationDemand (PopulationID, InstallationID, Amount, GameID, Export, NonEssential ) VALUES ( @PopulationID, @InstallationID, @Amount, @GameID, @Export, @NonEssential )";
+						sqliteCommand.Parameters.AddWithValue("@PopulationID", gclass.int_5);
+						sqliteCommand.Parameters.AddWithValue("@InstallationID", gclass5.gclass141_0.auroraInstallationType_0);
+						sqliteCommand.Parameters.AddWithValue("@Amount", gclass5.decimal_0);
+						sqliteCommand.Parameters.AddWithValue("@GameID", this.int_57);
+						sqliteCommand.Parameters.AddWithValue("@Export", gclass5.bool_0);
+						sqliteCommand.Parameters.AddWithValue("@NonEssential", gclass5.bool_1);
+						sqliteCommand.ExecuteNonQuery();
+					}
+					if (gclass.gclass114_3.method_2())
+					{
+						sqliteCommand.CommandText = "INSERT INTO FCT_PopMDChanges (PopulationID, GameID, Duranium, Neutronium, Corbomite, Tritanium, Boronide, Mercassium, Vendarite, Sorium, Uridium, Corundium, Gallicite ) VALUES ( @PopulationID, @GameID, @Duranium, @Neutronium, @Corbomite, @Tritanium, @Boronide, @Mercassium, @Vendarite, @Sorium, @Uridium, @Corundium, @Gallicite )";
+						sqliteCommand.Parameters.AddWithValue("@PopulationID", gclass.int_5);
+						sqliteCommand.Parameters.AddWithValue("@GameID", this.int_57);
+						sqliteCommand.Parameters.AddWithValue("@Duranium", gclass.gclass114_3.decimal_0);
+						sqliteCommand.Parameters.AddWithValue("@Neutronium", gclass.gclass114_3.decimal_1);
+						sqliteCommand.Parameters.AddWithValue("@Corbomite", gclass.gclass114_3.decimal_2);
+						sqliteCommand.Parameters.AddWithValue("@Tritanium", gclass.gclass114_3.decimal_3);
+						sqliteCommand.Parameters.AddWithValue("@Boronide", gclass.gclass114_3.decimal_4);
+						sqliteCommand.Parameters.AddWithValue("@Mercassium", gclass.gclass114_3.decimal_5);
+						sqliteCommand.Parameters.AddWithValue("@Vendarite", gclass.gclass114_3.decimal_6);
+						sqliteCommand.Parameters.AddWithValue("@Sorium", gclass.gclass114_3.decimal_7);
+						sqliteCommand.Parameters.AddWithValue("@Uridium", gclass.gclass114_3.decimal_8);
+						sqliteCommand.Parameters.AddWithValue("@Corundium", gclass.gclass114_3.decimal_9);
+						sqliteCommand.Parameters.AddWithValue("@Gallicite", gclass.gclass114_3.decimal_10);
+						sqliteCommand.ExecuteNonQuery();
+					}
+				}
+			}
+		}
+		catch (Exception exception_)
+		{
+			GClass202.smethod_68(exception_, 1463);
+		}
+	}
